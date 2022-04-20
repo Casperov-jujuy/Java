@@ -1,0 +1,142 @@
+package Punto05v2;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Texto {
+
+	//***************
+	  public static void imprimir() {
+			 try {
+		         Scanner input = new Scanner(new File("C:\\Users\\monta\\eclipse-workspace\\MDPYPC-GRUPO16-TP02\\TP02Frase.txt"));
+		
+		         while (input.hasNextLine()) {
+		             String line = input.nextLine();
+		             System.out.println(line);
+		         }
+		         input.close();
+		      } catch (Exception ex) {ex.printStackTrace();}
+			 System.out.println("--------------------------------------------");
+			}
+	//****************
+	  public static ArrayList<String> AbrirTxt() {
+			
+			ArrayList<String> devolver = new ArrayList<String>();
+			
+			try {
+		         Scanner input = new Scanner(new File("C:\\Users\\monta\\eclipse-workspace\\MDPYPC-GRUPO16-TP02\\TP02Frase.txt"));
+		         while (input.hasNextLine()) {
+		        	 devolver.add(input.nextLine());
+		         }
+		         input.close();
+		     } catch (Exception ex) {
+		    	 ex.printStackTrace();
+		     }
+			return devolver;
+			}
+	//***************************CANTIDAD DE CADA UNA DE LAS VOCALES
+	  public static void CantidadVocales() {
+		  String texto="";
+		  char aux;
+		  Object[] var = AbrirTxt().toArray();
+		  
+		  int A=0,E=0,I=0,O=0,U=0,a=0,e=0,i=0,o=0,u= 0;
+			for(int x=0;x<var.length;x++) {
+				texto=(String) var[x];
+				for(int y=0;y<texto.length();y++) {
+					aux=texto.charAt(y);
+					switch (aux) {
+					case 'A': A++;
+					break;
+					case 'E': E++;
+					break;
+					case 'I': I++;
+					break;
+					case 'O': O++;
+					break;
+					case 'U': U++;
+					break;
+					case 'a': a++;
+					break;
+					case 'e': e++;
+					break;
+					case 'i': i++;
+					break;
+					case 'o': o++;
+					break;
+					case 'u': u++;
+					break;
+				}
+				}
+				
+			}
+			System.out.println("--------------------------------------------");
+			System.out.println(" La cantidad de cada vocales en el texto es: " + "A="+A+" E="+E+" I="+I
+					+" O="+O+" U="+U+" a="+a+" e="+e+" i="+i+" o="+o+" u="+u);
+			System.out.println("--------------------------------------------");
+		}
+	  
+	//*****************************CANTIDAD DE ESPACIOS EN BLANCO	
+			public static void EspaciosBlancos() {
+				 String texto;
+				  char aux;
+				  int A=0;
+				  Object[] var = AbrirTxt().toArray();
+				  for(int x=0;x<var.length;x++) {
+						texto=(String) var[x];
+					for(int y=0;y<texto.length();y++) {
+						aux=texto.charAt(y);
+						switch (aux) {
+						case ' ':A++;break;
+						}
+					}
+				  }
+				  System.out.println("--------------------------------------------");
+					System.out.println(" La cantidad de espacios en blanco en el texto es: "+A);
+					System.out.println("--------------------------------------------");
+			
+			} 
+			
+	//************************CANTIDAD DE LETRAS EN MAYÚSCULA	
+			public static void CantidadMayusculas() {
+				String texto;
+				  char aux;
+				  int A=0;
+				  Object[] var = AbrirTxt().toArray();
+				  for(int x=0;x<var.length;x++) {
+						texto=(String) var[x];
+					for(int y=0;y<texto.length();y++) {
+						aux=texto.charAt(y);
+						if(Character.isUpperCase(aux)){         
+					          A++;            
+					}
+						
+						
+				  }
+					
+				}
+				  System.out.println("--------------------------------------------");
+					System.out.println(" La cantidad de mayúsculas en el texto es: "+A);
+					System.out.println("--------------------------------------------");
+			
+			} 
+				
+	//*****************CANTIDAD DE PALABRAS	
+			public static void CantidadPalabras() {
+				String texto;
+				  char aux;
+				  int A=0;
+				  Object[] var = AbrirTxt().toArray();
+				  for(int x=0;x<var.length;x++) {
+						texto=(String) var[x];
+				StringTokenizer st= new StringTokenizer(texto);
+				       A=A+st.countTokens();
+					}
+				  System.out.println("--------------------------------------------");
+				  System.out.println(" Número de palabras en el texto es: " +A);
+				  System.out.println("--------------------------------------------");
+			}
+			
+	
+}
