@@ -1,0 +1,360 @@
+package Punto_5;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+
+public class himno_nacional 
+{
+	public static void main(String[] args) 
+	{
+	
+		leerFichero acceso=new leerFichero();
+		//agrega donde se encuentra el texto
+		String direccion ="D:/FACULTAD/Modelo de Desarrollo de Programación Concurrente/Unidad 2/TP02Frase.txt";
+		
+		//se va a usar en el apartado 7
+		//direccion de donde se va a crear el nuevo fichero
+		String nuevadireccion = "D:/FACULTAD/Modelo de Desarrollo de Programación Concurrente/Unidad 2/TP02VocalIntercambiada.txt";
+		
+		acceso.lee(direccion);
+		acceso.contador(direccion);
+		acceso.reemplazo(direccion,nuevadireccion);
+		
+	}
+}	
+
+//--------------------------------------------------------------------------------------------------------------------	
+		
+class leerFichero{
+	
+	
+	
+	//lee el fichero
+	public void lee(String direccion) {
+		
+		FileReader entrada = null;
+	    BufferedReader buffer = null;
+	    
+		//control de excepciones
+	    
+		try {
+
+			//Se abre el fichero
+			entrada = new FileReader(direccion);
+			
+			//se crea un Buffer para poder disponer del metodo readLine()
+			buffer = new BufferedReader(entrada);
+			
+			// Lectura del fichero
+			 	String linea;
+			 	
+			 	System.out.println(" El texto es: \n");
+			 	
+			 	//mientras la linea no sea vacia..
+			 	while ((linea=buffer.readLine())!=null)
+			 	{
+			 	    //se imprimen toda las lineas
+			 		System.out.println(linea);
+			 	}
+		}
+		catch (Exception e)
+		{
+			//ayuda a identificar el método que causa el error
+			e.printStackTrace();
+		}finally {
+			 // En el finally cerramos el fichero, para asegurarnos
+	         // que se cierra tanto si todo va bien como si salta 
+	         // una excepcion.
+	         try{                    
+	            if( null != entrada ){   
+	               entrada.close();     
+	            }                  
+	         }catch (Exception e2){ 
+	            e2.printStackTrace();
+	         }
+		}
+		
+	}
+	
+//--------------------------------------------------------------------------------------------------------------	
+	
+	//contador de vocales, espacios, mayusculas, etc
+	public void contador(String direccion) {
+		
+	FileReader entrada = null;
+	BufferedReader buffer = null;
+	
+//inicializamos los contadores necesarios
+	int contadorA=0;
+	int contadorE=0;
+	int contadorI=0;
+	int contadorO=0;
+	int contadorU=0;
+	int contadorEspacios=0;
+	int contadorPalabras=0;
+	int contadorMayusculas=0;
+	int contadorLineas =0;
+	int contadorsignospuntuacion =0;
+				      
+	//control de excepciones
+				      
+	try {
+
+		//Se abre el fichero
+	entrada = new FileReader(direccion);
+	//se crea un Buffer para poder disponer del metodo readLine()
+	buffer = new BufferedReader(entrada);
+						
+	// Lectura del fichero
+		String linea;
+	//mientras la linea no sea vacia..
+		while ((linea=buffer.readLine())!=null)
+		{ 	
+			//cuenta las lineas que existen en el texto
+			contadorLineas++;
+						 		
+			//recorre la linea seleccionada
+		    for (int i = 0; i < linea.length(); i++) 
+			{
+						//VOCALES
+				if (linea.charAt(i)=='A'||linea.charAt(i)=='a') {
+						contadorA++;
+				}
+				if (linea.charAt(i)=='E'||linea.charAt(i)=='e') {
+						contadorE++;				
+				}
+				if (linea.charAt(i)=='I'||linea.charAt(i)=='i') {
+						contadorI++;		
+				}
+				if (linea.charAt(i)=='O'||linea.charAt(i)=='o') {
+						contadorO++;		
+				}
+				if (linea.charAt(i)=='U'||linea.charAt(i)=='u') {
+						contadorU++;		
+				}
+						//ESPACIOS
+					if (linea.charAt(i)==32) {
+						contadorEspacios++;						
+					}
+						//MAYUSCULAS
+					if (Character.isUpperCase(linea.charAt(i))) {
+						contadorMayusculas++;
+					}
+					
+					if(linea.charAt(i)>32 && linea.charAt(i)<175) {
+						if(!(linea.charAt(i)>64 && linea.charAt(i)<91)&& !(linea.charAt(i)>96 && linea.charAt(i)<123))
+						
+						contadorsignospuntuacion++;						
+					}
+					
+			}
+						 		 
+//sirve para separar una cadena de caracteres en una serie de elementos  
+			StringTokenizer st = new StringTokenizer(linea);
+	//Cuenta las palabras ya que tiene como delimitador el espacio.. 
+			 contadorPalabras= contadorPalabras+st.countTokens();
+			            		
+		}
+							
+	}catch(Exception e){
+		//ayuda a identificar el método que causa el error
+        e.printStackTrace();
+     }finally
+	{						
+							
+    	// En el finally cerramos el fichero, para asegurarnos
+         // que se cierra tanto si todo va bien como si salta 
+         // una excepcion.
+         try{                    
+            if( null != entrada ){   
+            	entrada.close();     
+            }                  
+         }catch (Exception e2){ 
+            e2.printStackTrace();
+         }
+      }					
+							
+	 System.out.println("\nCANTIDAD DE A/a: "+contadorA);
+     System.out.println("CANTIDAD DE E/e: "+contadorE);
+     System.out.println("CANTIDAD DE I/i: "+contadorI);
+     System.out.println("CANTIDAD DE O/o: "+contadorO);
+     System.out.println("CANTIDAD DE U/u: "+contadorU+"\n");
+
+     System.out.println("CANTIDAD DE ESPACIOS: "+contadorEspacios);
+     System.out.println("CANTIDAD DE PALABRAS: "+contadorPalabras);
+     System.out.println("CANTIDAD DE MAYUSCULAS: "+contadorMayusculas);
+     System.out.println("CANTIDAD DE LINEAS: "+contadorLineas);		
+     System.out.println("CANTIDAD DE SIGNOS DE PUNTUACION: "+contadorsignospuntuacion+"\n");
+	
+	}	
+
+	
+
+//--------------------------------------------------------------------------------------------------------------	
+//SE CREA UN NUEVO FICHERO PARA REEMPLAZAR LAS VOCALES DE FORMA SEGURA
+		
+	public boolean EsVocal (char Caracter) 
+	{
+		char vocal[]= {'a','A','e','E','i','I','o','O','u','U','á','é','í','ó','ú'};
+			
+		for(int i=0;i<vocal.length;i++) 
+		{
+			if(vocal[i]==Caracter) 
+				return true;
+		}		
+		return false;
+	}
+
+
+
+	public  void reemplazo(String direccion, String nuevadireccion) {
+		
+//creo fichero nuevo
+		
+		File fichero1 = new File (nuevadireccion);
+		
+		try {
+			  // A partir del objeto File creamos el fichero físicamente por codigo
+			 
+			if (fichero1.createNewFile())
+			    System.out.println("El fichero se ha creado correctamente \n");
+			  else {
+				
+				System.out.println("");
+			    System.out.println("No ha podido ser creado el fichero con vocales intercambiadas porque ya existe.");
+			  	System.out.println("");}
+			} catch (IOException ioe) {
+			  ioe.printStackTrace();
+			}
+		
+		//LEO EL FICHERO ORIGINAL
+		
+	      FileReader entrada = null;
+	      BufferedReader buffer = null;
+	     
+	      //La lista la utilizo para copiar el texto en el fichero nuevo
+	     
+	      ArrayList<String> lista = new ArrayList<>(); 
+	    
+	      //El array utilizo para leer uno por uno la linea
+	   
+	      char Caracter[]=null;
+	      
+	      try {
+	    	  
+	         // Apertura del fichero y creacion de BufferedReader
+	  
+	     	entrada = new FileReader(direccion);
+	        buffer = new BufferedReader(entrada);
+
+	         // Lectura del fichero
+	         String linea;
+	         
+	         System.out.println("*****FRASE CON VOCALES INTERCAMBIADAS*****\n");
+	         
+	         while((linea=buffer.readLine())!=null) 
+	         {
+	        	 	        	
+	            	//convierte un String en un vector de caracteres
+	        	 
+	            	Caracter=linea.toCharArray();
+		        	
+	            	//recorre el vector de caracteres
+	            	for(int i=0;i<Caracter.length;i++) 
+	            	{
+	            		//analiza si tiene una vocal para poder reemplazarla
+	            		if(EsVocal(Caracter[i])) 
+	            		{
+	            			//le suma 20 al caracter correspondiente y lo convierte en char
+	            			Caracter[i]=(char) (Caracter[i]+20);
+	            		}
+	            	
+			   }
+	            
+	            	//luego de ser modificado recien se agrega a la lista de texto convirtiendo de caracter a string
+	            	//para el uso mas sencillo
+	            	lista.add(String.valueOf(Caracter));
+	       
+	         }
+	      }
+	      catch(Exception e){
+	         e.printStackTrace();
+	      }finally{
+	         
+	         try{                    
+	            if( null != entrada ){   
+	            	entrada.close();     
+	            }                  
+	         }catch (Exception e2){ 
+	            e2.printStackTrace();
+	         }
+	      }
+	      
+	      //ESCRIBO EL NUEVO FICHERO
+	      
+          
+	      FileWriter fichero = null;
+	        PrintWriter pw = null;
+	     
+	        try
+	        {
+	        
+	       fichero = new FileWriter(nuevadireccion);
+		   pw = new PrintWriter(fichero);
+		    
+		   //Copio todo lo que tiene la lista al fichero nuevo
+		   
+		   for (int i = 0; i < lista.size(); i++)
+		   {  
+			   pw.println(lista.get(i));	
+		  }
+	       
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	           try {
+	           // Nuevamente aprovechamos el finally para asegurarnos que se cierra el fichero.
+	           if (null != fichero)
+	              fichero.close();
+	           } catch (Exception e2) {
+	              e2.printStackTrace();
+	           }
+	        }
+
+	      //MUESTRO NUEVO FICHERO 
+	      //El codigo lee y detecta las vocales, les suma 20 y los vuelve a convertir en lineas
+	        
+	        try {
+	            
+	        	entrada = new FileReader (nuevadireccion);
+	            buffer = new BufferedReader(entrada);
+	            
+	            // Lectura del fichero
+	           
+	            String linea;
+	            while((linea=buffer.readLine())!=null)
+	            {
+		    	System.out.println(linea);
+	            }
+	   
+	         }catch(Exception e){
+	            e.printStackTrace();
+	         }finally{
+	           
+	            try{                    
+	               if( null != entrada ){   
+	            	   entrada.close();     
+	               }                  
+	            }catch (Exception e2){ 
+	               e2.printStackTrace();
+	            }
+	         }
+	}
+}
