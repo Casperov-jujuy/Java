@@ -1,0 +1,117 @@
+public class Main {
+
+	public static void main(String[] args) {
+		int filas = 12;
+        int columnas = 12;
+        String sopa[][] = new String[filas][columnas];
+        // Arreglo de caracteres
+        String[] letras = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+
+        // Agregar palabaras a la matriz
+        /*pasarHorizontalNormal(sopa, "aguila", 0, 3);
+        pasarVerticalNormal(sopa, "comadreja", 1, 1);
+        pasarVerticalNormal(sopa, "camaleon", 0, 9);
+        pasarHorizontalInvertida(sopa, "antilope", 11, 3);
+        diagonalNormal(sopa, "elefante", 3, 3);
+        pasarVerticalInvertida(sopa, "avestruz", 1, 10);
+        pasarHorizontalInvertida(sopa, "serpiente", 5, 2);
+        pasarHorizontalNormal(sopa, "cocodrilo", 10, 0);
+        pasarHorizontalInvertida(sopa, "bufalo", 2, 1);
+        pasarVerticalInvertida(sopa, "camello", 5, 11);*/
+        pasarHorizontalInvertida(sopa, "antilope", 11, 3);
+        pasarVerticalNormal(sopa, "comadreja", 1, 1);
+        pasarHorizontalNormal(sopa, "cocodrilo", 10, 0);
+        pasarVerticalNormal(sopa, "camaleon", 0, 9);
+        pasarHorizontalInvertida(sopa, "serpiente", 5, 2);
+        pasarVerticalNormal(sopa, "aguila", 0, 11);
+        pasarVerticalInvertida(sopa, "camello", 2, 5);
+        diagonalInvertida(sopa, "bufalo", 11, 11);
+        diagonalInvertida(sopa, "elefante", 7, 11);
+
+
+        // Completar la matriz con letras aleatorias
+        completarSopa(sopa, letras);
+        VisualizarSopa(sopa);
+
+    }
+
+    // retorna una letra aletoria de la A-Z de acuerdo su pocision en un arreglo
+    public static String randomLetras(String letras[]) {
+        int numero;
+
+        do {
+            numero = (int) (Math.random() * 100);
+        } while (!(numero >= 1 && numero <= 25));
+        //System.out.println("numero "+numero);
+        //System.out.println(letras[numero]);
+        String letra = letras[numero];
+
+        return letra;
+    }
+
+    public static void completarSopa(String sopa[][], String letras[]) {
+        for (int j = 0; j < sopa.length; j++) {
+            for (int i = 0; i < sopa.length; i++) {
+                if (sopa[i][j] == null) {
+                    sopa[i][j] = randomLetras(letras);
+                    // Visualiar la matriz mas limpia sopa[i][j]= "0";  
+                    //sopa[i][j]= "0";  
+                }
+            }
+        }
+    }
+
+    public static void diagonalNormal(String sopa[][], String palabra, int fila, int col) {
+        for (int i = 0; i < palabra.length(); i++) {
+            sopa[fila + i][col + i] = "" + palabra.charAt(i);
+
+        }
+    }
+    public static void diagonalInvertida(String sopa[][], String palabra, int fila, int col) {
+    	for (int i = 0; i < palabra.length(); i++) {
+            sopa[fila - i][col - i] = "" + palabra.charAt(i);
+
+        }
+    }
+
+    public static void pasarHorizontalInvertida(String sopa[][], String palabra, int fila, int col) {/////llll
+        int k = 0;
+        for (int i = palabra.length() - 1; i >= 0; i--) {
+            sopa[fila][col + k] = "" + palabra.charAt(i);
+            k++;
+        }
+    }
+
+    public static void pasarVerticalInvertida(String sopa[][], String palabra, int fila, int col) {
+        int k = 0;
+        for (int i = palabra.length() - 1; i >= 0; i--) {
+            sopa[fila + k][col] = "" + palabra.charAt(i);
+            k++;
+        }
+    }
+
+    public static void pasarHorizontalNormal(String sopa[][], String palabra, int fila, int col) {
+
+        for (int i = 0; i < palabra.length(); i++) {
+            sopa[fila][col + i] = "" + palabra.charAt(i);
+
+        }
+    }
+
+    public static void pasarVerticalNormal(String sopa[][], String palabra, int fila, int col) {
+
+        for (int i = 0; i < palabra.length(); i++) {
+            sopa[fila + i][col] = "" + palabra.charAt(i);
+
+        }
+    }
+
+    public static void VisualizarSopa(String sopa[][]) {
+        for (int i = 0; i < sopa.length; i++) {
+            for (int j = 0; j < sopa.length; j++) {
+                System.out.print(" " + sopa[i][j]);
+            }
+            System.out.println(" ");
+        }
+    }
+}
